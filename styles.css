@@ -1073,11 +1073,16 @@ footer p {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    will-change: transform, opacity;
 }
 
 .animate-on-scroll.is-visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+.hero-content {
+    will-change: transform, opacity;
 }
 
 /* Stagger animation for child elements */
@@ -1125,12 +1130,44 @@ html.has-scroll-dragging {
     min-height: 100vh;
 }
 
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    /* Kill continuous keyframe animations */
+    .hero::before,
+    .hero-highlight,
+    .offer-section::after,
+    .offer-badge::after {
+        animation: none !important;
+    }
+
+    /* Make reveal instant */
+    .animate-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Disable all transitions */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
         gap: 1rem;
         padding: 1rem 1.5rem;
+    }
+
+    /* Reduce backdrop-filter on mobile for performance */
+    .intro-box {
+        backdrop-filter: none;
+        background-color: rgba(0, 0, 0, 0.6);
     }
 
     .nav-links {
