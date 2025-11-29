@@ -1,166 +1,80 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const prefersReducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-    ).matches;
+    // 1. REGISTER GSAP PLUGINS
+    gsap.registerPlugin(ScrollTrigger);
 
-    let scrollInstance = null;
-    let hasScrolled = false;
-
-    // -----------------------------
-    // GSAP Logo Animation
-    // -----------------------------
-    if (!prefersReducedMotion && typeof gsap !== 'undefined') {
-        // Initialize GSAP Timeline for a sleek, cohesive entrance
-        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-        // 1. Fade in the short text (W&W)
-        tl.fromTo("#short-text", 
-            { opacity: 0, x: -20 },
-            { opacity: 1, x: 0, duration: 0.8 }
-        );
-
-        // 2. On Hover: Sleekly swap to long text (No pencil drawing)
-        const logo = document.querySelector('.ww-logo');
-        const shortText = document.querySelector('#short-text');
-        const longText = document.querySelector('#long-text');
-
-        // Ensure initial states in CSS or via GSAP set
-        gsap.set(longText, { opacity: 0, x: -10 });
-
-        logo.addEventListener('mouseenter', () => {
-            gsap.to(shortText, { opacity: 0, x: 10, duration: 0.4 });
-            gsap.to(longText, { opacity: 1, x: 0, duration: 0.5, delay: 0.1 });
-        });
-
-        logo.addEventListener('mouseleave', () => {
-            gsap.to(longText, { opacity: 0, x: -10, duration: 0.4 });
-            gsap.to(shortText, { opacity: 1, x: 0, duration: 0.5, delay: 0.1 });
-        });
-    }
-
-    // -----------------------------
-    // Lenis Smooth Scroll
-    // -----------------------------
-    if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
-        scrollInstance = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            orientation: 'vertical',
-            gestureOrientation: 'vertical',
-            smoothWheel: true,
-            smoothTouch: false,
-            touchMultiplier: 2
-        });
-
-        function raf(time) {
-            scrollInstance.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        scrollInstance.on('scroll', ({ scroll }) => {
-            const introBox = document.querySelector('.intro-box');
-
-            // One-time hide of intro box after user starts scrolling
-            if (!hasScrolled && scroll > 100 && introBox) {
-                introBox.classList.add('hidden');
-                hasScrolled = true;
-            }
-
-            // Hero parallax effect
-            const hero = document.querySelector('.hero');
-            const heroContent = document.querySelector('.hero-content');
-            
-            if (hero && heroContent) {
-                const heroRect = hero.getBoundingClientRect();
-                const heroHeight = hero.offsetHeight;
-                const progress = Math.max(0, Math.min(1, -heroRect.top / heroHeight));
-                
-                heroContent.style.transform = `translateY(${progress * 40}px)`;
-                heroContent.style.opacity = 1 - progress * 0.5;
-            }
-        });
-    }
-
-    // Helper for scrolling (falls back to native scroll when Lenis is off)
-    function scrollToTarget(target) {
-        if (!target) return;
-
-        if (scrollInstance) {
-            scrollInstance.scrollTo(target, { offset: 0, duration: 1.2 });
-        } else {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-    }
-
-    // -----------------------------
-    // Scroll-reveal animations
-    // -----------------------------
-    const observerOptions = {
-        root: null,
-        threshold: 0.12,
-        rootMargin: '0px 0px -80px 0px'
-    };
-
-    const fadeInObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    const revealTargets = document.querySelectorAll(
-        '.section, .content-block, .form-section, .offer-details'
-    );
-
-    revealTargets.forEach(el => {
-        el.classList.add('animate-on-scroll');
-        fadeInObserver.observe(el);
+    // 2. INITIALIZE LENIS (Smooth Scroll)
+    const lenis = new Lenis({
+        lerp: 0.08, // Smoothness (lower = smoother/slower)
+        wheelMultiplier: 1.1 // Responsiveness
     });
 
-    // -----------------------------
-    // Smooth in-page anchors
-    // -----------------------------
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', (e) => {
-            const href = anchor.getAttribute('href');
+    // Sync Lenis and GSAP ScrollTrigger
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
 
-            // Handle "#" (logo link) as "scroll to top"
-            if (href === '#') {
-                e.preventDefault();
+    // 3. HERO ANIMATIONS (Parallax & Intro)
+    // Parallax effect for Hero Content
+    gsap.to('.hero-content', {
+        y: 100, // Moves down slightly as you scroll
+        opacity: 0,
+        ease: 'none',
+        scrollTrigger: {
+            trigger: '.hero',
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true
+        }
+    });
 
-                const introBox = document.querySelector('.intro-box');
-                if (introBox) introBox.classList.add('hidden');
+    // Hide the "Intro Box" smoothly after scrolling 100px
+    const introBox = document.querySelector('.intro-box');
+    if (introBox) {
+        ScrollTrigger.create({
+            start: 100, // Pixel value
+            onEnter: () => introBox.classList.add('hidden'),
+            onLeaveBack: () => introBox.classList.remove('hidden')
+        });
+    }
 
-                if (scrollInstance) {
-                    scrollInstance.scrollTo(0, { duration: 1.2 });
-                } else {
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 4. GLOBAL FADE-UP ANIMATION (Replaces your old Observer)
+    // Selects all sections and content blocks automatically
+    const revealElements = document.querySelectorAll('.section h2, .content-block, .gallery-card, .form-section');
+
+    revealElements.forEach((element) => {
+        gsap.fromTo(element, 
+            { y: 50, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: element,
+                    start: 'top 85%', // Triggers when top of element hits 85% of viewport
+                    toggleActions: 'play none none reverse' // Replays on scroll back up
                 }
-                return;
             }
+        );
+    });
 
-            const targetId = href.substring(1);
-            const target = document.getElementById(targetId);
-            if (!target) return;
-
+    // 5. SMOOTH ANCHOR LINKS (Connecting Menu to Lenis)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-
-            // Hide intro when leaving hero via its button
-            if (anchor.closest('.hero')) {
-                const introBox = document.querySelector('.intro-box');
-                if (introBox) introBox.classList.add('hidden');
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') {
+                lenis.scrollTo(0); // Scroll to top
+            } else {
+                const target = document.querySelector(targetId);
+                if (target) lenis.scrollTo(target);
             }
-
-            scrollToTarget(target);
         });
     });
 
-    // -----------------------------
-    // Form field focus styling
-    // -----------------------------
+    // 6. FORM FIELD FOCUS STYLING
     document
         .querySelectorAll('.form-group input, .form-group select, .form-group textarea')
         .forEach(field => {
