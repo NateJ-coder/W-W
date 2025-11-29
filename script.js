@@ -39,53 +39,55 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // -----------------------------
-    // Locomotive Scroll
+    // Lenis Smooth Scroll
     // -----------------------------
-    if (!prefersReducedMotion) {
-        scrollInstance = new LocomotiveScroll({
-            el: document.querySelector('[data-scroll-container]'),
-            smooth: true,
-            smoothMobile: false,
-            lerp: 0.08,          // slightly higher than 0.05 = smoother **and** snappier
-            multiplier: 1.05     // a tiny bit more "oomph" without feeling floaty
+    if (!prefersReducedMotion && typeof Lenis !== 'undefined') {
+        scrollInstance = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            orientation: 'vertical',
+            gestureOrientation: 'vertical',
+            smoothWheel: true,
+            smoothTouch: false,
+            touchMultiplier: 2
         });
 
-        window.addEventListener('resize', () => {
-            scrollInstance.update();
-        });
+        function raf(time) {
+            scrollInstance.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
-        scrollInstance.on('scroll', (args) => {
+        scrollInstance.on('scroll', ({ scroll }) => {
             const introBox = document.querySelector('.intro-box');
 
             // One-time hide of intro box after user starts scrolling
-            if (!hasScrolled && args.scroll.y > 100 && introBox) {
+            if (!hasScrolled && scroll > 100 && introBox) {
                 introBox.classList.add('hidden');
                 hasScrolled = true;
             }
 
-            // Hero parallax (requires data-scroll-id="hero" on the hero section)
-            const heroElement =
-                args.currentElements && args.currentElements.hero;
-
-            if (heroElement) {
-                const progress = heroElement.progress; // 0 → 1 as we scroll past hero
-                const heroContent = document.querySelector('.hero-content');
-
-                if (heroContent) {
-                    heroContent.style.transform =
-                        `translateY(${progress * 40}px)`;
-                    heroContent.style.opacity = 1 - progress * 0.5;
-                }
+            // Hero parallax effect
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (hero && heroContent) {
+                const heroRect = hero.getBoundingClientRect();
+                const heroHeight = hero.offsetHeight;
+                const progress = Math.max(0, Math.min(1, -heroRect.top / heroHeight));
+                
+                heroContent.style.transform = `translateY(${progress * 40}px)`;
+                heroContent.style.opacity = 1 - progress * 0.5;
             }
         });
     }
 
-    // Helper for scrolling (falls back to native scroll when Locomotive is off)
+    // Helper for scrolling (falls back to native scroll when Lenis is off)
     function scrollToTarget(target) {
         if (!target) return;
 
         if (scrollInstance) {
-            scrollInstance.scrollTo(target);
+            scrollInstance.scrollTo(target, { offset: 0, duration: 1.2 });
         } else {
             target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -133,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (introBox) introBox.classList.add('hidden');
 
                 if (scrollInstance) {
-                    scrollInstance.scrollTo(0);
+                    scrollInstance.scrollTo(0, { duration: 1.2 });
                 } else {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
