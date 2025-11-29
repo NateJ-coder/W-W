@@ -92,23 +92,14 @@ header {
     align-items: center;
 }
 
-.logo {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
+.logo-link {
+    display: block;
+    text-decoration: none;
 }
 
-.logo h1 {
-    font-size: 1.75rem;
-    margin: 0;
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.logo-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-weight: 400;
+.ww-logo {
+    width: 220px;
+    height: auto;
 }
 
 .nav-links {
@@ -1231,18 +1222,8 @@ html.has-scroll-dragging {
 }
 
 @media (max-width: 480px) {
-    .logo {
-        flex-direction: column;
-        gap: 0.25rem;
-        align-items: center;
-    }
-
-    .logo h1 {
-        font-size: 1.5rem;
-    }
-
-    .logo-subtitle {
-        font-size: 0.8rem;
+    .ww-logo {
+        width: 180px;
     }
 
     .hero-title {

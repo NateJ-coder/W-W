@@ -12,10 +12,150 @@
     <!-- Header -->
     <header>
         <nav class="nav-container">
-            <div class="logo">
-                <h1>W&amp;W</h1>
-                <span class="logo-subtitle">Workshop &amp; Wireframe</span>
-            </div>
+            <a href="#" class="logo-link">
+                <svg class="ww-logo"
+                     width="260" height="100"
+                     viewBox="0 0 320 120"
+                     xmlns="http://www.w3.org/2000/svg"
+                     role="img"
+                     aria-labelledby="wwLogoTitle wwLogoDesc">
+                  <title id="wwLogoTitle">W&amp;W – Workshop and Wireframe</title>
+                  <desc id="wwLogoDesc">
+                    Logo that reveals the full name Workshop and Wireframe on hover,
+                    with an ink stroke and drop animation, and the slogan:
+                    We listen. We write. We build.
+                  </desc>
+
+                  <style>
+                    .ww-logo {
+                      cursor: pointer;
+                      overflow: visible;
+                    }
+
+                    /* Base typography */
+                    .logo-text-short,
+                    .logo-text-long {
+                      font-size: 28px;
+                      font-weight: 700;
+                      letter-spacing: 0.18em;
+                      text-transform: uppercase;
+                      fill: #ffffff;
+                      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                                   "Segoe UI", sans-serif;
+                    }
+
+                    .logo-text-long {
+                      font-size: 20px;
+                      letter-spacing: 0.14em;
+                    }
+
+                    .logo-tagline {
+                      font-size: 11px;
+                      text-transform: uppercase;
+                      letter-spacing: 0.22em;
+                      fill: #b3b3b3;
+                      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+                                   "Segoe UI", sans-serif;
+                    }
+
+                    /* Default state: W&W visible, long text hidden */
+                    #short-text {
+                      opacity: 1;
+                      transform: translateX(0);
+                      transition:
+                        opacity 0.55s ease,
+                        transform 0.55s ease;
+                    }
+
+                    #long-text {
+                      opacity: 0;
+                      transform: translateX(-14px);
+                      transition:
+                        opacity 0.55s ease,
+                        transform 0.55s ease;
+                    }
+
+                    /* Ink stroke (underlining swish) */
+                    #ink-stroke {
+                      fill: none;
+                      stroke: #ffffff;
+                      stroke-width: 1.6;
+                      stroke-linecap: round;
+                      opacity: 0;
+                      stroke-dasharray: 1;
+                      stroke-dashoffset: 1;
+                      path-length: 1;
+                      transition:
+                        opacity 0.35s ease 0.15s,
+                        stroke-dashoffset 0.8s ease 0.15s;
+                    }
+
+                    /* Ink drop that becomes the period */
+                    #ink-drop {
+                      fill: #ffffff;
+                      opacity: 0;
+                      transform-origin: 285px 43px;
+                      transform: translateY(-6px) scale(0.3);
+                      transition:
+                        opacity 0.25s ease 0.8s,
+                        transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1) 0.8s;
+                    }
+
+                    /* Optional: tagline slight highlight on hover */
+                    #tagline {
+                      transition: fill 0.35s ease;
+                    }
+
+                    /* HOVER STATE */
+                    .ww-logo:hover #short-text {
+                      opacity: 0;
+                      transform: translateX(-14px);
+                    }
+
+                    .ww-logo:hover #long-text {
+                      opacity: 1;
+                      transform: translateX(0);
+                    }
+
+                    .ww-logo:hover #ink-stroke {
+                      opacity: 0.7;
+                      stroke-dashoffset: 0;
+                    }
+
+                    .ww-logo:hover #ink-drop {
+                      opacity: 1;
+                      transform: translateY(0) scale(1);
+                    }
+
+                    .ww-logo:hover #tagline {
+                      fill: #e0ffe0;
+                    }
+                  </style>
+
+                  <!-- Short mark: W&W -->
+                  <text id="short-text" class="logo-text-short" x="10" y="40">
+                    W&amp;W
+                  </text>
+
+                  <!-- Long version: Workshop and Wireframe -->
+                  <text id="long-text" class="logo-text-long" x="10" y="40">
+                    WORKSHOP AND WIREFRAME
+                  </text>
+
+                  <!-- Ink stroke swish under the main text -->
+                  <!-- You can tweak this path if you want a different curve -->
+                  <path id="ink-stroke"
+                        d="M 10 48 Q 130 72 250 46 Q 270 40 285 43" />
+
+                  <!-- Ink drop / period at the end -->
+                  <circle id="ink-drop" cx="285" cy="43" r="2.5" />
+
+                  <!-- Tagline -->
+                  <text id="tagline" class="logo-tagline" x="10" y="78">
+                    WE LISTEN. WE WRITE. WE BUILD.
+                  </text>
+                </svg>
+            </a>
             <ul class="nav-links">
                 <li><a href="#who">Who we are</a></li>
                 <li><a href="#what">What we do</a></li>
