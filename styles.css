@@ -320,8 +320,127 @@ header {
 }
 
 /* Contact Section */
-.contact-links {
-    margin-top: 2rem;
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-form-wrapper h3,
+.contact-info h3 {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.contact-form .btn {
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+/* Contact Info */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-method {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.contact-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.contact-details h4 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-details a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 1.05rem;
+    transition: color 0.3s ease;
+}
+
+.contact-details a:hover {
+    color: #f39c12;
+    text-decoration: underline;
+}
+
+.response-time {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-top: 1rem;
+    text-align: left;
 }
 
 /* Footer */
@@ -381,6 +500,11 @@ footer p {
 
     .content-block p {
         font-size: 1rem;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
     }
 }
 
