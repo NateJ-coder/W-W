@@ -51,10 +51,37 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         const targetId = this.getAttribute('href').substring(1);
         const target = document.getElementById(targetId);
         
+        // Hide intro box when clicking any anchor link from hero
+        const introBox = document.querySelector('.intro-box');
+        if (introBox && this.closest('.hero')) {
+            introBox.classList.add('hidden');
+        }
+        
         if (target) {
             scroll.scrollTo(target);
         }
     });
+});
+
+// Hide intro box on scroll
+let hasScrolled = false;
+scroll.on('scroll', (args) => {
+    const introBox = document.querySelector('.intro-box');
+    
+    if (!hasScrolled && args.scroll.y > 100 && introBox) {
+        introBox.classList.add('hidden');
+        hasScrolled = true;
+    }
+    
+    // Parallax effect for hero
+    if (typeof args.currentElements['hero'] === 'object') {
+        const progress = args.currentElements['hero'].progress;
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent) {
+            heroContent.style.transform = `translateY(${progress * 50}px)`;
+            heroContent.style.opacity = 1 - progress;
+        }
+    }
 });
 
 // Enhanced form field interactions
@@ -69,14 +96,4 @@ document.querySelectorAll('.form-group input, .form-group select, .form-group te
     });
 });
 
-// Add subtle parallax effect to hero content
-scroll.on('scroll', (args) => {
-    if (typeof args.currentElements['hero'] === 'object') {
-        const progress = args.currentElements['hero'].progress;
-        const heroContent = document.querySelector('.hero-content');
-        if (heroContent) {
-            heroContent.style.transform = `translateY(${progress * 50}px)`;
-            heroContent.style.opacity = 1 - progress;
-        }
-    }
-});
+

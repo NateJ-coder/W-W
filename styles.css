@@ -223,6 +223,14 @@ header {
     border-radius: 12px;
     margin-bottom: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s ease;
+}
+
+.intro-box.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .intro-box p {
