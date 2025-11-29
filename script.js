@@ -7,6 +7,38 @@ document.addEventListener('DOMContentLoaded', () => {
     let hasScrolled = false;
 
     // -----------------------------
+    // GSAP Logo Animation
+    // -----------------------------
+    if (!prefersReducedMotion && typeof gsap !== 'undefined') {
+        // Initialize GSAP Timeline for a sleek, cohesive entrance
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        // 1. Fade in the short text (W&W)
+        tl.fromTo("#short-text", 
+            { opacity: 0, x: -20 },
+            { opacity: 1, x: 0, duration: 0.8 }
+        );
+
+        // 2. On Hover: Sleekly swap to long text (No pencil drawing)
+        const logo = document.querySelector('.ww-logo');
+        const shortText = document.querySelector('#short-text');
+        const longText = document.querySelector('#long-text');
+
+        // Ensure initial states in CSS or via GSAP set
+        gsap.set(longText, { opacity: 0, x: -10 });
+
+        logo.addEventListener('mouseenter', () => {
+            gsap.to(shortText, { opacity: 0, x: 10, duration: 0.4 });
+            gsap.to(longText, { opacity: 1, x: 0, duration: 0.5, delay: 0.1 });
+        });
+
+        logo.addEventListener('mouseleave', () => {
+            gsap.to(longText, { opacity: 0, x: -10, duration: 0.4 });
+            gsap.to(shortText, { opacity: 1, x: 0, duration: 0.5, delay: 0.1 });
+        });
+    }
+
+    // -----------------------------
     // Locomotive Scroll
     // -----------------------------
     if (!prefersReducedMotion) {
