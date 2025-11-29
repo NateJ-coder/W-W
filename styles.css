@@ -319,6 +319,122 @@ header {
     padding: 3rem 0;
 }
 
+/* Free Offer Section */
+.offer-section {
+    border-top: 3px solid var(--secondary-color);
+}
+
+.offer-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.offer-badge {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.offer-intro {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary-color);
+}
+
+.offer-details {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 2px solid var(--secondary-color);
+    margin: 2rem 0;
+}
+
+.offer-details h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+.offer-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.offer-list li {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.offer-list li:last-child {
+    border-bottom: none;
+}
+
+.offer-cta {
+    text-align: center;
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 8px;
+}
+
+.offer-cta p {
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+.btn-large {
+    padding: 1.1rem 2.5rem;
+    font-size: 1.1rem;
+}
+
+/* Application Form Section */
+.application-section {
+    background-color: var(--bg-white);
+}
+
+.application-form {
+    max-width: 700px;
+    margin: 2rem auto 0;
+    background-color: var(--bg-light);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.form-section {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 2rem;
+}
+
+.form-section h3 {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+}
+
+.application-form .btn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
 /* Contact Section */
 .contact-container {
     display: grid;
@@ -505,6 +621,18 @@ footer p {
     .contact-container {
         grid-template-columns: 1fr;
         gap: 2.5rem;
+    }
+
+    .application-form {
+        padding: 1.5rem;
+    }
+
+    .offer-details {
+        padding: 1.5rem;
+    }
+
+    .offer-cta {
+        padding: 1.5rem;
     }
 }
 

@@ -102,6 +102,185 @@
         </div>
     </section>
 
+    <!-- Free Website Offer Section -->
+    <section id="free-offer" class="section section-alt offer-section">
+        <div class="container">
+            <div class="offer-header">
+                <span class="offer-badge">Limited Offer</span>
+                <h2>Get a free personality-first website</h2>
+            </div>
+            <div class="content-block">
+                <p class="offer-intro">We're looking for <strong>5 small businesses or creators</strong> to give a free website to – as part of building our portfolio and proving what we do actually works.</p>
+                
+                <div class="offer-details">
+                    <h3>Here's the deal:</h3>
+                    <ul class="offer-list">
+                        <li><strong>You get:</strong> A full Workshop & Wireframe website (normally valued at our standard package rate) – completely free.</li>
+                        <li><strong>You pay for:</strong> Your own domain name (usually $10-15/year through a registrar like Namecheap or Google Domains).</li>
+                        <li><strong>You agree to:</strong> Provide a short testimonial about working with us and allow us to feature your site in our portfolio.</li>
+                    </ul>
+                </div>
+
+                <div class="offer-cta">
+                    <p><strong>Only 5 spots available.</strong> If you're a small business, creator, or service provider who needs a real website that sounds like you (not like a template), apply below.</p>
+                    <a href="#application" class="btn btn-primary btn-large">Apply for a free website</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Application Form Section -->
+    <section id="application" class="section application-section">
+        <div class="container">
+            <h2>Application for free website</h2>
+            <div class="content-block">
+                <p>Fill out the form below to apply. We'll review all applications and get back to the selected 5 within a week.</p>
+            </div>
+
+            <form action="https://formspree.io/f/xblveprl" method="POST" class="application-form">
+                <input type="hidden" name="_subject" value="Free Website Application">
+                <input type="hidden" name="form-type" value="free-website-application">
+
+                <div class="form-section">
+                    <h3>About you</h3>
+                    
+                    <div class="form-group">
+                        <label for="app-name">Your name *</label>
+                        <input type="text" id="app-name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-email">Your email *</label>
+                        <input type="email" id="app-email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-phone">Phone number</label>
+                        <input type="tel" id="app-phone" name="phone">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-location">Where are you based? (City/Country) *</label>
+                        <input type="text" id="app-location" name="location" required>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>About your business</h3>
+
+                    <div class="form-group">
+                        <label for="app-business-name">Business/brand name *</label>
+                        <input type="text" id="app-business-name" name="business-name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-business-type">What do you do? *</label>
+                        <select id="app-business-type" name="business-type" required>
+                            <option value="">Select one</option>
+                            <option value="service-provider">Service provider (coach, consultant, therapist, etc.)</option>
+                            <option value="creative">Creative/artist (designer, photographer, writer, etc.)</option>
+                            <option value="local-business">Local business (cafe, salon, shop, etc.)</option>
+                            <option value="online-business">Online business (ecommerce, digital products, etc.)</option>
+                            <option value="freelancer">Freelancer</option>
+                            <option value="nonprofit">Non-profit/community project</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-description">Describe your business in 2-3 sentences *</label>
+                        <textarea id="app-description" name="business-description" rows="4" required placeholder="What do you do? Who do you serve? What makes you different?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-stage">How long have you been in business? *</label>
+                        <select id="app-stage" name="business-stage" required>
+                            <option value="">Select one</option>
+                            <option value="just-starting">Just starting (0-6 months)</option>
+                            <option value="early">Early stage (6 months - 2 years)</option>
+                            <option value="established">Established (2-5 years)</option>
+                            <option value="mature">Mature (5+ years)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>About your website needs</h3>
+
+                    <div class="form-group">
+                        <label for="app-current-site">Do you currently have a website?</label>
+                        <select id="app-current-site" name="current-site">
+                            <option value="">Select one</option>
+                            <option value="no-site">No website at all</option>
+                            <option value="broken-diy">Yes, but it's broken or outdated</option>
+                            <option value="template">Yes, but it's a generic template</option>
+                            <option value="social-only">No website, just social media</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-current-url">If you have a current website, what's the URL?</label>
+                        <input type="url" id="app-current-url" name="current-url" placeholder="https://">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-goals">What are your main goals for a new website? *</label>
+                        <textarea id="app-goals" name="website-goals" rows="4" required placeholder="e.g., Get more clients, look more professional, explain what I do clearly, capture leads, etc."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-domain">Are you willing to purchase your own domain name ($10-15/year)? *</label>
+                        <select id="app-domain" name="domain-commitment" required>
+                            <option value="">Select one</option>
+                            <option value="yes">Yes, I'm happy to purchase a domain</option>
+                            <option value="already-have">I already have a domain</option>
+                            <option value="need-help">Yes, but I'll need help choosing one</option>
+                            <option value="unsure">Not sure yet</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Why you're a good fit</h3>
+
+                    <div class="form-group">
+                        <label for="app-why">Why do you want to work with W&W? *</label>
+                        <textarea id="app-why" name="why-ww" rows="3" required placeholder="What about our approach appeals to you?"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-testimonial">Are you willing to provide a testimonial and be featured in our portfolio? *</label>
+                        <select id="app-testimonial" name="testimonial-agreement" required>
+                            <option value="">Select one</option>
+                            <option value="yes-both">Yes to both testimonial and portfolio feature</option>
+                            <option value="testimonial-only">Yes to testimonial, prefer not to be in portfolio</option>
+                            <option value="portfolio-only">Yes to portfolio, but no testimonial</option>
+                            <option value="unsure">Not sure yet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-timeline">When would you ideally want to launch your new site? *</label>
+                        <select id="app-timeline" name="timeline" required>
+                            <option value="">Select one</option>
+                            <option value="asap">As soon as possible</option>
+                            <option value="1-2-months">Within 1-2 months</option>
+                            <option value="3-6-months">Within 3-6 months</option>
+                            <option value="flexible">Flexible, no rush</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="app-additional">Anything else you'd like us to know?</label>
+                        <textarea id="app-additional" name="additional-info" rows="3" placeholder="Optional"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large">Submit application</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contact" class="section section-dark">
         <div class="container">
