@@ -144,15 +144,47 @@ header {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #1f304f 0%, #0a111f 100%);
+    position: relative;
+    overflow: hidden;
     color: white;
     padding: 6rem 0;
     text-align: center;
+
+    /* Mesh fabric background */
+    background-image: url("assets/bg-tailor-mesh-dark.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .hero-content {
+    position: relative;
     max-width: 800px;
     margin: 0 auto;
+    z-index: 1;
+}
+
+/* Animated overlay that "breathes" like fabric being worked */
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(8, 12, 24, 0.95) 0%,
+        rgba(10, 32, 24, 0.9) 50%,
+        rgba(8, 12, 24, 0.95) 100%
+    );
+    background-size: 200% 200%;
+    animation: heroOverlayDrift 18s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes heroOverlayDrift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .hero-title {
@@ -165,6 +197,23 @@ header {
 .hero-title em {
     color: var(--accent-color);
     font-style: italic;
+}
+
+.hero-highlight {
+    display: inline-block;
+    position: relative;
+    animation: heroHighlightPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes heroHighlightPulse {
+    0%, 100% {
+        transform: translateY(0);
+        text-shadow: 0 0 0 rgba(76, 175, 80, 0);
+    }
+    50% {
+        transform: translateY(-2px);
+        text-shadow: 0 0 12px rgba(76, 175, 80, 0.6);
+    }
 }
 
 .intro-box {
@@ -202,6 +251,11 @@ header {
     cursor: pointer;
     border: none;
     font-size: 1rem;
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .btn-primary {
@@ -331,7 +385,51 @@ header {
 
 /* Free Offer Section */
 .offer-section {
+    position: relative;
+    overflow: hidden;
     border-top: 3px solid var(--secondary-color);
+    color: #ffffff;
+    background-color: #050505;
+}
+
+/* Sequin fabric background */
+.offer-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("assets/bg-tailor-sequin-folds.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.25;
+    filter: grayscale(0.1);
+    z-index: 0;
+}
+
+/* Soft glow/shimmer over the sequins */
+.offer-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.25), transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.7), transparent 55%);
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: sequinGlow 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes sequinGlow {
+    0%, 100% { opacity: 0.1; }
+    50%      { opacity: 0.5; }
+}
+
+/* Keep content above the textures */
+.offer-section > * {
+    position: relative;
+    z-index: 1;
 }
 
 .offer-header {
@@ -340,6 +438,8 @@ header {
 }
 
 .offer-badge {
+    position: relative;
+    overflow: hidden;
     display: inline-block;
     background-color: var(--accent-color);
     color: white;
@@ -350,6 +450,29 @@ header {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 1rem;
+}
+
+/* Subtle line shimmer */
+.offer-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.35),
+        rgba(255, 255, 255, 0)
+    );
+    transform: skewX(-25deg);
+    animation: badgeShimmer 4s infinite;
+}
+
+@keyframes badgeShimmer {
+    0%   { left: -150%; }
+    40%  { left: 150%; }
+    100% { left: 150%; }
 }
 
 .offer-intro {
@@ -508,6 +631,8 @@ header {
     outline: none;
     border-color: var(--accent-color);
     background-color: #2a2a2a;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2), 0 0 12px rgba(76, 175, 80, 0.3);
+    transform: scale(1.01);
 }
 
 .form-group select {
@@ -580,6 +705,63 @@ footer {
 footer p {
     color: var(--text-light);
     margin: 0;
+}
+
+/* Scroll Reveal Animations */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Stagger animation for child elements */
+.is-visible .content-block > * {
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+.is-visible .content-block > *:nth-child(1) { animation-delay: 0.1s; }
+.is-visible .content-block > *:nth-child(2) { animation-delay: 0.2s; }
+.is-visible .content-block > *:nth-child(3) { animation-delay: 0.3s; }
+.is-visible .content-block > *:nth-child(4) { animation-delay: 0.4s; }
+.is-visible .content-block > *:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Enhanced form focus state */
+.form-group.is-focused label {
+    color: var(--accent-color);
+    transform: translateX(3px);
+}
+
+/* Locomotive Scroll overrides */
+html.has-scroll-smooth {
+    overflow: hidden;
+}
+
+html.has-scroll-dragging {
+    user-select: none;
+}
+
+.has-scroll-smooth body {
+    overflow: hidden;
+}
+
+.has-scroll-smooth [data-scroll-container] {
+    min-height: 100vh;
 }
 
 /* Responsive Design */

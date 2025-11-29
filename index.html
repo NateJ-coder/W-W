@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop & Wireframe | Personality-First Digital Studio</title>
     <meta name="description" content="Workshop & Wireframe (W&W) is a tiny digital studio that builds personality-first websites, chatbots and online experiences.">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-scroll-container>
     <!-- Header -->
     <header>
         <nav class="nav-container">
@@ -29,7 +30,7 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <h2 class="hero-title">We build websites that finally sound like <em>you</em></h2>
+                <h2 class="hero-title">We build websites that finally sound like <em class="hero-highlight">you</em></h2>
                 <div class="intro-box">
                     <p><strong>Workshop &amp; Wireframe (W&amp;W)</strong> is a tiny digital studio that builds personality-first websites, chatbots and online experiences.</p>
                     <p>We run a proper workshop to find your voice, then wireframe and build a site that finally sounds like you – not like a generic AI template.</p>
@@ -40,8 +41,8 @@
     </section>
 
     <!-- Who We Are -->
-    <section id="who" class="section section-alt">
-        <div class="container">
+    <section id="who" class="section section-alt" data-scroll-section>
+        <div class="container" data-scroll data-scroll-speed="1">
             <h2>Who we are</h2>
             <div class="content-block">
                 <p>Workshop &amp; Wireframe is a small, hands-on digital studio obsessed with one thing: making your business sound like <em>itself</em> online.</p>
@@ -52,8 +53,8 @@
     </section>
 
     <!-- What We Do -->
-    <section id="what" class="section">
-        <div class="container">
+    <section id="what" class="section" data-scroll-section>
+        <div class="container" data-scroll data-scroll-speed="1">
             <h2>What we do</h2>
             <div class="content-block">
                 <p>At W&amp;W, we specialise in <strong>personality-driven online presence</strong> for small businesses, creators and service providers.</p>
@@ -71,8 +72,8 @@
     </section>
 
     <!-- How We Work -->
-    <section id="how" class="section section-alt">
-        <div class="container">
+    <section id="how" class="section section-alt" data-scroll-section>
+        <div class="container" data-scroll data-scroll-speed="1">
             <h2>How we work</h2>
             <div class="content-block">
                 <p>We keep the process simple and human:</p>
@@ -93,8 +94,8 @@
     </section>
 
     <!-- Packages Section (Placeholder) -->
-    <section id="packages" class="section">
-        <div class="container">
+    <section id="packages" class="section" data-scroll-section>
+        <div class="container" data-scroll data-scroll-speed="1">
             <h2>Our packages</h2>
             <div class="content-block">
                 <p class="coming-soon">Package details coming soon. Get in touch to discuss what works for you.</p>
@@ -103,8 +104,8 @@
     </section>
 
     <!-- Free Website Offer Section -->
-    <section id="free-offer" class="section section-alt offer-section">
-        <div class="container">
+    <section id="free-offer" class="section section-alt offer-section" data-scroll-section>
+        <div class="container" data-scroll data-scroll-speed="1">
             <div class="offer-header">
                 <span class="offer-badge">Limited Offer</span>
                 <h2>Get a free personality-first website</h2>
@@ -364,5 +365,9 @@
             <p>&copy; 2025 Workshop &amp; Wireframe. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Locomotive Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
